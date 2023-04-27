@@ -26,37 +26,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="330dp"
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="333dp"-->
 
-                android:orientation="horizontal">
+<!--                android:orientation="horizontal">-->
 
 
-                <ImageButton
-                    android:id="@+id/hellobutton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/hello_world" />
+<!--                <ImageButton-->
+<!--                    android:id="@+id/button_hello"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    app:srcCompat="@drawable/hello_world" />-->
 
-                <EditText
-                    android:id="@+id/custom_input"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=" " />
+<!--                <EditText-->
+<!--                    android:id="@+id/input_custom"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:ems="10"-->
+<!--                    android:inputType="textPersonName"-->
+<!--                    android:text=" " />-->
 
-                <ImageButton
-                    android:id="@+id/completebutton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/complete_button" />
-            </LinearLayout>
+<!--                <ImageButton-->
+<!--                    android:id="@+id/button_complete"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    app:srcCompat="@drawable/complete_button" />-->
+<!--            </LinearLayout>-->
 
             <RelativeLayout
                 android:id="@+id/change_keyboard_holder"

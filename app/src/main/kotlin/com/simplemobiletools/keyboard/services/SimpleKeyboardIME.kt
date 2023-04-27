@@ -1,13 +1,16 @@
 package com.simplemobiletools.keyboard.services
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.inputmethodservice.InputMethodService
+import android.text.Editable
 import android.text.InputType
 import android.text.InputType.TYPE_CLASS_DATETIME
 import android.text.InputType.TYPE_CLASS_NUMBER
 import android.text.InputType.TYPE_CLASS_PHONE
 import android.text.InputType.TYPE_MASK_CLASS
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -15,6 +18,9 @@ import android.view.inputmethod.EditorInfo.IME_ACTION_NONE
 import android.view.inputmethod.EditorInfo.IME_FLAG_NO_ENTER_ACTION
 import android.view.inputmethod.EditorInfo.IME_MASK_ACTION
 import android.view.inputmethod.ExtractedTextRequest
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.RelativeLayout
 import com.simplemobiletools.commons.extensions.getSharedPrefs
 import com.simplemobiletools.keyboard.R
 import com.simplemobiletools.keyboard.extensions.config
@@ -30,7 +36,7 @@ class SimpleKeyboardIME : InputMethodService(), MyKeyboardView.OnKeyboardActionL
     private val KEYBOARD_SYMBOLS_SHIFT = 2
     private val KEYBOARD_NUMBERS = 3
     private val KEYBOARD_PHONE = 4
-
+    private lateinit var custom_input : EditText
     private var keyboard: MyKeyboard? = null
     private var keyboardView: MyKeyboardView? = null
     private var lastShiftPressTS = 0L
@@ -38,6 +44,11 @@ class SimpleKeyboardIME : InputMethodService(), MyKeyboardView.OnKeyboardActionL
     private var inputTypeClass = InputType.TYPE_CLASS_TEXT
     private var enterKeyType = IME_ACTION_NONE
     private var switchToLetters = false
+
+//    private lateinit var inputField: EditText
+//    private var currentEditText: EditText? = null
+
+
 
     override fun onInitializeInterface() {
         super.onInitializeInterface()
@@ -52,6 +63,52 @@ class SimpleKeyboardIME : InputMethodService(), MyKeyboardView.OnKeyboardActionL
         keyboardView!!.setKeyboardHolder(keyboardHolder.keyboard_holder)
         keyboardView!!.setEditorInfo(currentInputEditorInfo)
         keyboardView!!.mOnKeyboardActionListener = this
+//        inputField = keyboardView!!.input_custom
+//        inputField.requestFocus()
+
+
+
+
+
+//        keyboardView!!.input_custom.setOnClickListener {
+//            custom_input = EditText(this)
+//            return custom_input
+//        }
+
+
+
+    //
+//        val inputField = keyboardHolder.findViewById<EditText>(R.id.input_custom)
+//        inputField.addTextChangedListener(object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                // Update the keyboard state based on the input field text
+//                // For example, you could display different keys if the user types a certain character
+//            }
+//            override fun afterTextChanged(s: Editable?) {}
+//        })
+//
+//        // Adjust the layout parameters of the keyboard view to make room for the input field
+//        val params = keyboardView!!.layoutParams as RelativeLayout.LayoutParams
+//        params.topMargin = inputField.height
+//        keyboardView!!.layoutParams = params
+    //        inputField.setOnKeyListener(this)
+    //        val editorInfo = currentInputEditorInfo
+    //        editorInfo.inputType = inputField.inputType
+    //        editorInfo.imeOptions = EditorInfo.IME_ACTION_DONE
+    //        editorInfo.initialSelStart = -1
+    //        editorInfo.initialSelEnd = -1
+    //        editorInfo.initialCapsMode = 0
+    //        editorInfo.fieldId = inputField.id
+
+
+    //        if (keyboardView != null) {
+    //            custom_input = keyboardView!!.input_custom
+    //        }
+    //
+    //        custom_input.setOnEditorActionListener { _, _, _ -> true  }
+
+
         return keyboardHolder!!
     }
 
@@ -69,8 +126,14 @@ class SimpleKeyboardIME : InputMethodService(), MyKeyboardView.OnKeyboardActionL
         keyboard = getKeyBoard()
         keyboardView?.setKeyboard(keyboard!!)
         keyboardView?.setEditorInfo(attribute)
+
+
         updateShiftKeyState()
     }
+
+
+
+
 
     private fun updateShiftKeyState() {
         if (keyboardMode == KEYBOARD_LETTERS) {
@@ -200,6 +263,17 @@ class SimpleKeyboardIME : InputMethodService(), MyKeyboardView.OnKeyboardActionL
             keyboardView!!.setKeyboard(keyboard!!)
             switchToLetters = false
         }
+    }
+
+
+    override fun move_to_custom_input() {
+
+
+
+
+
+        keyboardView?.input_custom?.requestFocus()
+
     }
 
     override fun moveCursorLeft() {

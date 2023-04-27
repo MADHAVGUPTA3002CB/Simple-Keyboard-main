@@ -36,23 +36,23 @@ class MainActivity : SimpleActivity() {
             (getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).showInputMethodPicker()
         }
 
-        var hello_button : ImageButton= findViewById(R.id.hellobutton)
-        var input_app : MyEditText = findViewById(R.id.text_edittext)
-        hello_button.setOnClickListener {
-
-            var my_text : String? = input_app.text.toString()
-            my_text += "Hello "
-            input_app.setText(my_text)
-        }
-
-        var complete_button : ImageButton = findViewById(R.id.completebutton)
-        var custom_input : EditText= findViewById(R.id.custom_input)
-        complete_button.setOnClickListener {
-            var custom_text : String? = custom_input.text.toString()
-            input_app.setText(custom_text)
-            custom_input.setText("")
-
-        }
+//        val button_hello : ImageButton= findViewById(R.id.button_hello)
+//        val app_input : MyEditText = findViewById(R.id.text_edittext)
+//        val button_complete : ImageButton = findViewById(R.id.button_complete)
+//        val input_custom : EditText= findViewById(R.id.input_custom)
+//        button_hello.setOnClickListener {
+//
+//            var my_text : String? = app_input.text.toString()
+//            my_text += "Hello "
+//            app_input.setText(my_text)
+//        }
+//
+//        button_complete.setOnClickListener {
+//            val custom_text : String? = input_custom.text.toString()
+//            app_input.setText(custom_text)
+//            input_custom.setText("")
+//
+//        }
 
 
 

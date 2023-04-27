@@ -20,10 +20,12 @@ import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityManager
 import android.view.animation.AccelerateInterpolator
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.core.animation.doOnEnd
 import androidx.core.animation.doOnStart
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.emoji2.text.EmojiCompat
 import androidx.emoji2.text.EmojiCompat.EMOJI_SUPPORTED
 import com.simplemobiletools.commons.extensions.*
@@ -47,6 +49,7 @@ import com.simplemobiletools.keyboard.interfaces.RefreshClipsListener
 import com.simplemobiletools.keyboard.models.Clip
 import com.simplemobiletools.keyboard.models.ClipsSectionLabel
 import com.simplemobiletools.keyboard.models.ListItem
+import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.keyboard_popup_keyboard.view.*
 import kotlinx.android.synthetic.main.keyboard_view_keyboard.view.*
 import java.util.*
@@ -93,6 +96,12 @@ class MyKeyboardView @JvmOverloads constructor(context: Context, attrs: Attribut
          * Called to force the KeyboardView to reload the keyboard
          */
         fun reloadKeyboard()
+
+        /*
+        *for entering custom input
+         */
+
+        fun move_to_custom_input()
     }
 
     private var mKeyboard: MyKeyboard? = null
@@ -163,6 +172,8 @@ class MyKeyboardView @JvmOverloads constructor(context: Context, attrs: Attribut
     private var mToolbarHolder: View? = null
     private var mClipboardManagerHolder: View? = null
     private var mEmojiPaletteHolder: View? = null
+//    private car mInputCustom
+//    private var mHelloButton :
     private var emojiCompatMetadataVersion = 0
 
     // For multi-tap
@@ -306,6 +317,7 @@ class MyKeyboardView @JvmOverloads constructor(context: Context, attrs: Attribut
     }
 
     /** Sets the top row above the keyboard containing a couple buttons and the clipboard **/
+    @SuppressLint("SetTextI18n")
     fun setKeyboardHolder(keyboardHolder: View) {
         mToolbarHolder = keyboardHolder.toolbar_holder
         mClipboardManagerHolder = keyboardHolder.clipboard_manager_holder
@@ -326,6 +338,40 @@ class MyKeyboardView @JvmOverloads constructor(context: Context, attrs: Attribut
                 vibrateIfNeeded()
                 openClipboardManager()
             }
+
+            button_hello.setOnClickListener {
+                mOnKeyboardActionListener!!.onText("Hello ")
+                vibrateIfNeeded()
+            }
+
+            if (input_custom.text?.isNotEmpty()==true){
+                button_complete.setOnClickListener{
+                    mOnKeyboardActionListener!!.onText(input_custom.text.toString())
+                    input_custom.setText("")
+                    vibrateIfNeeded()
+                }
+            }
+
+//            input_custom.setOnFocusChangeListener { v, hasFocus ->
+//
+//                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//
+//                if (hasFocus){
+//
+//                    imm.showSoftInput(custom_input, InputMethodManager.SHOW_IMPLICIT)
+//
+//                }else{
+//                    imm.hideSoftInputFromWindow(v.windowToken, 0)
+//                }
+//            }
+
+
+
+
+
+
+
+
 
             clipboard_clear.setOnLongClickListener { context.toast(R.string.clear_clipboard_data); true; }
             clipboard_clear.setOnClickListener {
@@ -753,7 +799,9 @@ class MyKeyboardView @JvmOverloads constructor(context: Context, attrs: Attribut
 
                     toggleClipboardVisibility(true)
                 }
-            } else {
+            }
+
+            else {
                 hideClipboardViews()
             }
         } else {
@@ -1074,6 +1122,10 @@ class MyKeyboardView @JvmOverloads constructor(context: Context, attrs: Attribut
 
                         override fun reloadKeyboard() {
                             mOnKeyboardActionListener!!.reloadKeyboard()
+                        }
+
+                        override fun move_to_custom_input() {
+                            mOnKeyboardActionListener!!.move_to_custom_input()
                         }
                     }
 
